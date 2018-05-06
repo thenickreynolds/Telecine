@@ -254,6 +254,10 @@ final class RecordingSession {
         .build());
   }
 
+  public boolean isRunning() {
+    return running;
+  }
+
   public void stopRecording() {
     Timber.d("Stopping screen recording...");
 

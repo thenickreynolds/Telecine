@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -15,12 +14,13 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
+
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import java.util.Locale;
 
 import static android.graphics.PixelFormat.TRANSLUCENT;
 import static android.text.TextUtils.getLayoutDirectionFromLocale;
@@ -117,8 +117,7 @@ final class OverlayView extends FrameLayout {
     ViewGroup.LayoutParams lp = getLayoutParams();
     lp.height = insets.getSystemWindowInsetTop();
 
-    boolean canReceiveTouchEventsUnderStatusBar = Build.VERSION.SDK_INT < Build.VERSION_CODES.O;
-    if (!canReceiveTouchEventsUnderStatusBar) {
+    if (!StatusBarUtil.canReceiveTouchEventsUnderStatusBar()) {
       int statusBarHeight = insets.getSystemWindowInsetTop();
       lp.height += statusBarHeight;
       setPaddingRelative(getPaddingStart(), getPaddingTop() + statusBarHeight, getPaddingEnd(), getPaddingBottom());

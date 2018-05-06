@@ -33,6 +33,7 @@ public final class TelecineActivity extends AppCompatActivity {
   @BindView(R.id.switch_show_countdown) Switch showCountdownView;
   @BindView(R.id.switch_hide_from_recents) Switch hideFromRecentsView;
   @BindView(R.id.switch_recording_notification) Switch recordingNotificationView;
+  @BindView(R.id.switch_stop_recording_on_power) Switch stopRecordingOnPowerView;
   @BindView(R.id.switch_show_touches) Switch showTouchesView;
   @BindView(R.id.container_use_demo_mode) View useDemoModeContainerView;
   @BindView(R.id.switch_use_demo_mode) Switch useDemoModeView;
@@ -45,6 +46,7 @@ public final class TelecineActivity extends AppCompatActivity {
   @Inject @ShowCountdown BooleanPreference showCountdownPreference;
   @Inject @HideFromRecents BooleanPreference hideFromRecentsPreference;
   @Inject @RecordingNotification BooleanPreference recordingNotificationPreference;
+  @Inject @StopOnPower BooleanPreference stopOnPowerPreference;
   @Inject @ShowTouches BooleanPreference showTouchesPreference;
   @Inject @UseDemoMode BooleanPreference useDemoModePreference;
 
@@ -77,6 +79,7 @@ public final class TelecineActivity extends AppCompatActivity {
     showCountdownView.setChecked(showCountdownPreference.get());
     hideFromRecentsView.setChecked(hideFromRecentsPreference.get());
     recordingNotificationView.setChecked(recordingNotificationPreference.get());
+    stopRecordingOnPowerView.setChecked(stopOnPowerPreference.get());
     showTouchesView.setChecked(showTouchesPreference.get());
     useDemoModeView.setChecked(useDemoModePreference.get());
     showDemoModeSetting = new DemoModeHelper.ShowDemoModeSetting() {
@@ -128,77 +131,41 @@ public final class TelecineActivity extends AppCompatActivity {
   }
 
   @OnCheckedChanged(R.id.switch_show_countdown) void onShowCountdownChanged() {
-    boolean newValue = showCountdownView.isChecked();
-    boolean oldValue = showCountdownPreference.get();
-    if (newValue != oldValue) {
-      Timber.d("Hide show countdown changing to %s", newValue);
-      showCountdownPreference.set(newValue);
-
-      analytics.send(new HitBuilders.EventBuilder() //
-          .setCategory(Analytics.CATEGORY_SETTINGS)
-          .setAction(Analytics.ACTION_CHANGE_SHOW_COUNTDOWN)
-          .setValue(newValue ? 1 : 0)
-          .build());
-    }
+    updateBooleanPreference(showCountdownView, showCountdownPreference, Analytics.ACTION_CHANGE_SHOW_COUNTDOWN);
   }
 
   @OnCheckedChanged(R.id.switch_hide_from_recents) void onHideFromRecentsChanged() {
-    boolean newValue = hideFromRecentsView.isChecked();
-    boolean oldValue = hideFromRecentsPreference.get();
-    if (newValue != oldValue) {
-      Timber.d("Hide from recents preference changing to %s", newValue);
-      hideFromRecentsPreference.set(newValue);
-
-      analytics.send(new HitBuilders.EventBuilder() //
-          .setCategory(Analytics.CATEGORY_SETTINGS)
-          .setAction(Analytics.ACTION_CHANGE_HIDE_RECENTS)
-          .setValue(newValue ? 1 : 0)
-          .build());
-    }
+    updateBooleanPreference(hideFromRecentsView, hideFromRecentsPreference, Analytics.ACTION_CHANGE_HIDE_RECENTS);
   }
 
   @OnCheckedChanged(R.id.switch_recording_notification) void onRecordingNotificationChanged() {
-    boolean newValue = recordingNotificationView.isChecked();
-    boolean oldValue = recordingNotificationPreference.get();
-    if (newValue != oldValue) {
-      Timber.d("Recording notification preference changing to %s", newValue);
-      recordingNotificationPreference.set(newValue);
+    updateBooleanPreference(recordingNotificationView, recordingNotificationPreference, Analytics.ACTION_CHANGE_RECORDING_NOTIFICATION);
+  }
 
-      analytics.send(new HitBuilders.EventBuilder() //
-          .setCategory(Analytics.CATEGORY_SETTINGS)
-          .setAction(Analytics.ACTION_CHANGE_RECORDING_NOTIFICATION)
-          .setValue(newValue ? 1 : 0)
-          .build());
-    }
+  @OnCheckedChanged(R.id.switch_stop_recording_on_power) void onStopOnPowerChanged() {
+    updateBooleanPreference(stopRecordingOnPowerView, stopOnPowerPreference, Analytics.ACTION_CHANGE_STOP_RECORDING_ON_POWER);
   }
 
   @OnCheckedChanged(R.id.switch_show_touches) void onShowTouchesChanged() {
-    boolean newValue = showTouchesView.isChecked();
-    boolean oldValue = showTouchesPreference.get();
-    if (newValue != oldValue) {
-      Timber.d("Show touches preference changing to %s", newValue);
-      showTouchesPreference.set(newValue);
-
-      analytics.send(new HitBuilders.EventBuilder() //
-          .setCategory(Analytics.CATEGORY_SETTINGS)
-          .setAction(Analytics.ACTION_CHANGE_SHOW_TOUCHES)
-          .setValue(newValue ? 1 : 0)
-          .build());
-    }
+    updateBooleanPreference(showTouchesView, showTouchesPreference, Analytics.ACTION_CHANGE_SHOW_TOUCHES);
   }
 
   @OnCheckedChanged(R.id.switch_use_demo_mode) void onUseDemoModeChanged() {
-    boolean newValue = useDemoModeView.isChecked();
-    boolean oldValue = useDemoModePreference.get();
+    updateBooleanPreference(useDemoModeView, useDemoModePreference, Analytics.ACTION_CHANGE_USE_DEMO_MODE);
+  }
+
+  private void updateBooleanPreference(Switch switchView, BooleanPreference preference, String analyticsAction) {
+    boolean newValue = switchView.isChecked();
+    boolean oldValue = preference.get();
     if (newValue != oldValue) {
-      Timber.d("Use demo mode preference changing to %s", newValue);
-      useDemoModePreference.set(newValue);
+      Timber.d("%s preference changing to %s", analyticsAction, newValue);
+      preference.set(newValue);
 
       analytics.send(new HitBuilders.EventBuilder() //
-          .setCategory(Analytics.CATEGORY_SETTINGS)
-          .setAction(Analytics.ACTION_CHANGE_USE_DEMO_MODE)
-          .setValue(newValue ? 1 : 0)
-          .build());
+              .setCategory(Analytics.CATEGORY_SETTINGS)
+              .setAction(analyticsAction)
+              .setValue(newValue ? 1 : 0)
+              .build());
     }
   }
 

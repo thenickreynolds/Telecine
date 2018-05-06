@@ -42,6 +42,7 @@ public final class TelecineService extends Service {
   @Inject @ShowCountdown Provider<Boolean> showCountdownProvider;
   @Inject @VideoSizePercentage Provider<Integer> videoSizePercentageProvider;
   @Inject @RecordingNotification Provider<Boolean> recordingNotificationProvider;
+  @Inject @StopOnPower Provider<Boolean> stopOnPowerProvider;
   @Inject @ShowTouches Provider<Boolean> showTouchesProvider;
   @Inject @UseDemoMode Provider<Boolean> useDemoModeProvider;
 
@@ -132,7 +133,9 @@ public final class TelecineService extends Service {
 
     @Override
     public void onScreenOff() {
-      recordingSession.stopRecording();
+      if (stopOnPowerProvider.get() && recordingSession.isRunning()) {
+        recordingSession.stopRecording();
+      }
     }
   };
 

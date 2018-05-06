@@ -28,6 +28,7 @@
   <string name="root_permission_denied">Allow root access to use Demo Mode</string>
   <string name="enable_demo_mode_in_settings">Enable Demo Mode in Settings</string>
   <string name="recording_stopped">Recording stopped</string>
+  <string name="stop_recording_on_power">Stop recording on screen off</string>
 
   <array name="countdown">
     <item>@string/countdown_three</item>

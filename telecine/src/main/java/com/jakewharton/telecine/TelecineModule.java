@@ -21,6 +21,7 @@ import static android.content.Context.MODE_PRIVATE;
   private static final boolean DEFAULT_SHOW_TOUCHES = false;
   private static final boolean DEFAULT_USE_DEMO_MODE = false;
   private static final boolean DEFAULT_RECORDING_NOTIFICATION = false;
+  private static final boolean DEFAULT_STOP_ON_POWER = !StatusBarUtil.canReceiveTouchEventsUnderStatusBar();
   private static final int DEFAULT_VIDEO_SIZE_PERCENTAGE = 100;
 
   @Provides @Singleton static Analytics provideAnalytics(Application app) {
@@ -63,6 +64,16 @@ import static android.content.Context.MODE_PRIVATE;
 
   @Provides @RecordingNotification
   static Boolean provideRecordingNotification(@RecordingNotification BooleanPreference pref) {
+    return pref.get();
+  }
+
+  @Provides @Singleton @StopOnPower
+  static BooleanPreference provideStopOnPowerPreference(SharedPreferences prefs) {
+    return new BooleanPreference(prefs, "stop-on-power", DEFAULT_STOP_ON_POWER);
+  }
+
+  @Provides @StopOnPower
+  static Boolean provideStopOnPower(@StopOnPower BooleanPreference pref) {
     return pref.get();
   }
 
