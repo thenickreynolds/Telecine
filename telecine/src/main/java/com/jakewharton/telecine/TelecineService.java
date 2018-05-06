@@ -48,6 +48,7 @@ public final class TelecineService extends Service {
   @Inject Analytics analytics;
   @Inject ContentResolver contentResolver;
 
+  private PowerBroadcastReceiver powerBroadcastReceiver;
   private boolean running;
   private RecordingSession recordingSession;
 
@@ -123,9 +124,24 @@ public final class TelecineService extends Service {
     }
   };
 
+  private final PowerBroadcastReceiver.Listener powerBroadcastReceiverListener = new PowerBroadcastReceiver.Listener() {
+    @Override
+    public void onScreenOn() {
+      // No-op
+    }
+
+    @Override
+    public void onScreenOff() {
+      recordingSession.stopRecording();
+    }
+  };
+
   @Override public void onCreate() {
     AndroidInjection.inject(this);
     super.onCreate();
+
+    powerBroadcastReceiver = new PowerBroadcastReceiver(this);
+    powerBroadcastReceiver.addListener(powerBroadcastReceiverListener);
   }
 
   @Override public int onStartCommand(@NonNull Intent intent, int flags, int startId) {
@@ -147,11 +163,15 @@ public final class TelecineService extends Service {
             videoSizePercentageProvider);
     recordingSession.showOverlay();
 
+    registerReceiver(powerBroadcastReceiver, powerBroadcastReceiver.getIntentFilter());
+
     return START_NOT_STICKY;
   }
 
   @Override public void onDestroy() {
     recordingSession.destroy();
+    unregisterReceiver(powerBroadcastReceiver);
+    powerBroadcastReceiver.removeListener(powerBroadcastReceiverListener);
     super.onDestroy();
   }
 
