@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-  <string name="launcher_name" translatable="false">Telecine Debug</string>
+  <string name="launcher_name" translatable="false">Screen Recorder Debug</string>
 
   <string name="shortcut_name">Launch Debug</string>
-  <string name="tile_name">Launch Telecine Debug</string>
+  <string name="tile_name">Launch Screen Recorder Debug</string>
 </resources>
