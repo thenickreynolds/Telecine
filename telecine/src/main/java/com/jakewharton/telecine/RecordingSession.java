@@ -313,6 +313,8 @@ final class RecordingSession {
             });
           }
         });
+
+    Toast.makeText(context, R.string.recording_stopped, Toast.LENGTH_SHORT).show();
   }
 
   private void showNotification(final Uri uri, Bitmap bitmap) {
