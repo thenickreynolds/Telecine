@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -115,6 +116,13 @@ final class OverlayView extends FrameLayout {
   @Override public WindowInsets onApplyWindowInsets(WindowInsets insets) {
     ViewGroup.LayoutParams lp = getLayoutParams();
     lp.height = insets.getSystemWindowInsetTop();
+
+    boolean canReceiveTouchEventsUnderStatusBar = Build.VERSION.SDK_INT < Build.VERSION_CODES.O;
+    if (!canReceiveTouchEventsUnderStatusBar) {
+      int statusBarHeight = insets.getSystemWindowInsetTop();
+      lp.height += statusBarHeight;
+      setPaddingRelative(getPaddingStart(), getPaddingTop() + statusBarHeight, getPaddingEnd(), getPaddingBottom());
+    }
 
     listener.onResize();
 
