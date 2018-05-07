@@ -1,10 +1,10 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.jakewharton.telecine.RecordingSession.RecordingInfo;
-import static com.jakewharton.telecine.RecordingSession.calculateRecordingInfo;
+import static net.nickreynolds.screenrecorder.RecordingSession.RecordingInfo;
+import static net.nickreynolds.screenrecorder.RecordingSession.calculateRecordingInfo;
 
 public final class RecordingSessionTest {
   @Test public void videoSizeNoCamera() {
