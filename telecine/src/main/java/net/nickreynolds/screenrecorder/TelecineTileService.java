@@ -1,4 +1,4 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import android.annotation.TargetApi;
 import android.service.quicksettings.Tile;

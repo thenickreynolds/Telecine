@@ -25,7 +25,7 @@ Release
 
  5. Install the release APK.
 
- 6. Run `adb shell am start -n com.jakewharton.telecine/.TelecineActivity -e crash true` and ensure
+ 6. Run `adb shell am start -n net.nickreynolds.screenrecorder/.TelecineActivity -e crash true` and ensure
     that the app crashed and that the exception was reported to Bugsnag.
 
  7. Upload to the Play Store Developer Console and ensure the APK is accepted.

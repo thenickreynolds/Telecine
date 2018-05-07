@@ -1,4 +1,4 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -55,7 +55,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 final class RecordingSession {
   static final int NOTIFICATION_ID = 522592;
 
-  private static final String DISPLAY_NAME = "telecine";
+  private static final String DISPLAY_NAME = "screen recorder";
   private static final String MIME_TYPE = "video/mp4";
 
   interface Listener {
@@ -85,7 +85,7 @@ final class RecordingSession {
 
   private final File outputRoot;
   private final DateFormat fileFormat =
-      new SimpleDateFormat("'Telecine_'yyyy-MM-dd-HH-mm-ss'.mp4'", Locale.US);
+      new SimpleDateFormat("'screen_recorder_'yyyy-MM-dd-HH-mm-ss'.mp4'", Locale.US);
 
   private final NotificationManager notificationManager;
   private final WindowManager windowManager;
@@ -111,7 +111,7 @@ final class RecordingSession {
     this.videoSizePercentage = videoSizePercentage;
 
     File picturesDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_MOVIES);
-    outputRoot = new File(picturesDir, "Telecine");
+    outputRoot = new File(picturesDir, "Screen Recorder");
 
     notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
     windowManager = (WindowManager) context.getSystemService(WINDOW_SERVICE);

@@ -1,4 +1,4 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import com.google.android.gms.analytics.Tracker;
 import java.util.Map;

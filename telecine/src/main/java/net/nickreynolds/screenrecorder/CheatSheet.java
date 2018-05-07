@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import android.content.Context;
 import android.graphics.Rect;

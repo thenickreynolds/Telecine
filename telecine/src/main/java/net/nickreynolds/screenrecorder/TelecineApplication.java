@@ -1,4 +1,4 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import android.app.Activity;
 import android.app.Application;
@@ -27,7 +27,7 @@ public final class TelecineApplication extends Application
     } else {
 //      Bugsnag.init(this, BuildConfig.BUGSNAG_KEY);
 //      Bugsnag.setReleaseStage(BuildConfig.BUILD_TYPE);
-//      Bugsnag.setProjectPackages("com.jakewharton.telecine");
+//      Bugsnag.setProjectPackages("net.nickreynolds.screenrecorder");
 //
       final BugsnagTree tree = new BugsnagTree();
 //      Bugsnag.getClient().beforeNotify(new BeforeNotify() {

@@ -1,4 +1,4 @@
-package com.jakewharton.telecine;
+package net.nickreynolds.screenrecorder;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.TaskDescription;
