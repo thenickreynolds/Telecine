@@ -22,7 +22,7 @@ public final class TelecineShortcutConfigureActivity extends Activity {
         .build());
 
     Intent launchIntent = new Intent(this, TelecineShortcutLaunchActivity.class);
-    ShortcutIconResource icon = ShortcutIconResource.fromContext(this, R.drawable.ic_launcher);
+    ShortcutIconResource icon = ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_tile);
 
     Intent intent = new Intent();
     intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.shortcut_name));
