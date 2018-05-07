@@ -11,3 +11,5 @@ reports
 
 # Mac OS
 .DS_Store
+telecine/release/output.json
+*.apk
