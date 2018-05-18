@@ -96,7 +96,10 @@ public final class TelecineService extends Service {
 
       Context context = getApplicationContext();
       String title = context.getString(R.string.notification_recording_title);
-      String subtitle = context.getString(R.string.notification_recording_subtitle);
+      int subtitleRes = StatusBarUtil.canReceiveTouchEventsUnderStatusBar()
+              ? R.string.notification_recording_subtitle
+              : R.string.notification_recording_subtitle_offset;
+      String subtitle = context.getString(subtitleRes);
       Notification notification = new Notification.Builder(context) //
           .setContentTitle(title)
           .setContentText(subtitle)

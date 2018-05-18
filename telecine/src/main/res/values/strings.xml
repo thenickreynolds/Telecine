@@ -22,6 +22,7 @@
   <string name="notification_captured_delete">Delete</string>
   <string name="notification_recording_title">Recording screen.</string>
   <string name="notification_recording_subtitle">Touch the clock area to stop recording.</string>
+  <string name="notification_recording_subtitle_offset">Touch below the right side of the status bar to stop recording.</string>
   <string name="recording_notification">Recording Notification</string>
   <string name="show_touches">Show Touches</string>
   <string name="use_demo_mode">Use Demo Mode</string>
